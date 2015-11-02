@@ -20,8 +20,8 @@ namespace ZabbixApi
             this.user = user;
             this.password = password;
             this.zabbixURL = zabbixURL;
-            initialConnect();
             auth = null;
+            initialConnect();
         }
 
         private string user;
