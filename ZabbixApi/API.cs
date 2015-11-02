@@ -21,6 +21,7 @@ namespace ZabbixApi
             this.password = password;
             this.zabbixURL = zabbixURL;
             initialConnect();
+            auth = null;
         }
 
         private string user;
