@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZabbixApi
 {
+    //Main
     class Response
     {
         public Response()

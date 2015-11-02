@@ -20,46 +20,36 @@ namespace ZabbixApi
             this.user = user;
             this.password = password;
             this.zabbixURL = zabbixURL;
+            initialConnect();
         }
 
-        string user;
-        string password;
-        string zabbixURL;
-        string auth;
+        private string user;
+        private string password;
+        private string zabbixURL;
+        private string auth;
 
-        string jsonResult;
-        string jsonParams;
-
-        WebRequest request;
-        WebResponse response;
-        Request zbxRequest;
-        Response zbxResponse;
-
-        public void initialConnect()
+        private void initialConnect()
         {
             dynamic userAuth = new ExpandoObject();
             userAuth.user = user;
             userAuth.password = password;
-
-            zbxRequest = new Request("2.0", "user.login", 1, null, userAuth);
-            jsonParams = JsonConvert.SerializeObject(zbxRequest);
-            zbxResponse = JsonConvert.DeserializeObject<Response>(sendRequest());
+            Response zbxResponse = JsonConvert.DeserializeObject<Response>(callApi("user.login", userAuth));
             auth = zbxResponse.result;          
         }
 
         public string callApi(string method, object parameters)
         {
-            zbxRequest = new Request("2.0", method, 1, auth, parameters);
-            jsonParams = JsonConvert.SerializeObject(zbxRequest);
-            return sendRequest();
+            Request zbxRequest = new Request("2.0", method, 1, auth, parameters);
+            string jsonParams = JsonConvert.SerializeObject(zbxRequest);
+            return sendRequest(jsonParams);
         }
 
-        private string sendRequest()
+        private string sendRequest(string jsonParams)
         {
-            
-            request = WebRequest.Create(zabbixURL);
+            WebRequest request = WebRequest.Create(zabbixURL);
             request.ContentType = "application/json-rpc";
             request.Method = "POST";
+            string jsonResult;
 
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
@@ -68,8 +58,7 @@ namespace ZabbixApi
                 streamWriter.Close();
             }
 
-            response = request.GetResponse();
-
+            WebResponse response = request.GetResponse();
             using (var streamReader = new StreamReader(response.GetResponseStream()))
             {
                 jsonResult = streamReader.ReadToEnd();
