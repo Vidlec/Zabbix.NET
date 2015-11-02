@@ -13,9 +13,9 @@ namespace ZabbixApi
 
 
     //Main
-    public class API
+    public class Zabbix
     {
-        public API(string user, string password, string zabbixURL)
+        public Zabbix(string user, string password, string zabbixURL)
         {
             this.user = user;
             this.password = password;
