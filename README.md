@@ -19,3 +19,4 @@ Note that you pass API method to Zabbix.callAPI method as a string.
 
 > - Zabbix.NET uses Newtonsoft.Json library for json serialization and deserialization
 > - .NET 4.5.2, but you can compile to any version of .NET as long as it supports ExpandoObject and Newtonsoft.Json 
+> - Now available on NuGET **PM> Install-Package Zabbix.NET**
