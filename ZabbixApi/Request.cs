@@ -1,6 +1,6 @@
 ﻿namespace ZabbixApi
 {
-    class Request
+    public class Request
     {
         public Request(string jsonrpc, string method, int id, string auth, dynamic @params)
         {

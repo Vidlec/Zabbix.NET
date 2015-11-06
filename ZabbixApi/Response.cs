@@ -3,7 +3,7 @@
 namespace ZabbixApi
 {
     //Main
-    class Response
+    public class Response
     {
         public Response()
         {
