@@ -9,7 +9,7 @@ Usage:
 ```
 Zabbix zabbix = new Zabbix(user, pass, zabbixUrl);
 zabbix.Login();
-string resultStr = zabbix.jsonRespopnse("host.get", new {output: "extend"});
+string resultStr = zabbix.jsonResponse("host.get", new {output: "extend"});
 Response reusultObj = zabbix.objectResponse("host.get", new {output: "extend"});
 zabbix.Logout();
 ```
