@@ -10,7 +10,7 @@ Usage:
 Zabbix zabbix = new Zabbix(user, pass, zabbixUrl);
 zabbix.Login();
 string resultStr = zabbix.jsonResponse("host.get", new {output: "extend"});
-Response reusultObj = zabbix.objectResponse("host.get", new {output: "extend"});
+Response resultObj = zabbix.objectResponse("host.get", new {output: "extend"});
 zabbix.Logout();
 ```
 
@@ -20,6 +20,35 @@ public string jsonrpc { get; set; }
 public dynamic result = new ExpandoObject();
 public int id { get; set; }
 ```
+
+
+
+Example (Write all host with active trigger):
+```
+Zabbix zabbix = new Zabbix("yourapiuser", "yourpassword", "http://yourzabbix.domain.eu/zabbix/api_jsonrpc.php");
+
+zabbix.login();
+Response responseObj = zabbix.objectResponse("trigger.get", new
+	{ output = new string[] {"hostname", "description", "lastchange", "priority", "value", "status", "triggerid" },
+      min_severity = 3,
+      expandData = true,
+      expandDescription = true,
+      expandExpression = true,
+      selectHosts = "extend",
+      selectGroups = "extend",
+      monitored = true,
+      sortfield = "hostname",
+      skipDependent = true,
+      filter = new {value = 1 }
+     });
+zabbix.logout();
+
+foreach (dynamic data in responseObj.result)
+{
+	Console.WriteLine(data.Hostname);
+}
+```
+
 
 
 Note that you pass API method to Zabbix.jsonRespopnse (objectResponse) method as a string.
