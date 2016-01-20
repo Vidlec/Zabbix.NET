@@ -23,7 +23,7 @@ public int id { get; set; }
 
 
 
-Example (Write all host with active trigger):
+Example (Log all hosts with active trigger):
 ```
 Zabbix zabbix = new Zabbix("yourapiuser", "yourpassword", "http://yourzabbix.domain.eu/zabbix/api_jsonrpc.php");
 
