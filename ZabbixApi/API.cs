@@ -45,8 +45,8 @@ namespace ZabbixApi
 
         public bool logout()
         {
-            Response zbxResponse = objectResponse("user.logout", null);
-            bool result = zbxResponse.result;
+            Response zbxResponse = objectResponse("user.logout", new string[] { });
+            var result = zbxResponse.result;
             return result;
         }
 
