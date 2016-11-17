@@ -15,11 +15,7 @@ namespace ZabbixApi
             this.user = user;
             this.password = password;
             this.zabbixURL = zabbixURL;
-            this.basicAuth = basicAuth;
-            if (basicAuth)
-            {
-                basicAuthParam = System.Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(this.user + ":" + this.password));
-            }
+            if (basicAuth) this.basicAuth = System.Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(this.user + ":" + this.password));
             auth = null;
         }
 
@@ -31,8 +27,7 @@ namespace ZabbixApi
         private string password;
         private string zabbixURL;
         private string auth;
-        private bool basicAuth;
-        private string basicAuthParam;
+        private string basicAuth = null;
 
         public void login()
         {
@@ -76,7 +71,7 @@ namespace ZabbixApi
         private string sendRequest(string jsonParams)
         {
             WebRequest request = WebRequest.Create(zabbixURL);
-            if (basicAuth) request.Headers.Add("Authorization", "Basic " + basicAuthParam);
+            if (basicAuth != null) request.Headers.Add("Authorization", "Basic " + basicAuth);
             request.ContentType = "application/json-rpc";
             request.Method = "POST";
             string jsonResult;
