@@ -8,6 +8,7 @@ There is no need for special classes for zabbix API methods. You can pass parame
 Usage:
 ```
 Zabbix zabbix = new Zabbix(user, pass, zabbixUrl);
+// Zabbix zabbix = new Zabbix(user, pass, zabbixUrl, true); // Add true as a parameter if you need to use Basic Auth
 zabbix.Login();
 string resultStr = zabbix.jsonResponse("host.get", new {output: "extend"});
 Response resultObj = zabbix.objectResponse("host.get", new {output: "extend"});
