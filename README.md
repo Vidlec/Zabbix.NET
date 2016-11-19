@@ -24,7 +24,7 @@ public int id { get; set; }
 
 
 
-Example (Log all hosts with active trigger):
+Example (Log all hosts with active triggers):
 ```
 Zabbix zabbix = new Zabbix("yourapiuser", "yourpassword", "http://yourzabbix.domain.eu/zabbix/api_jsonrpc.php");
 
@@ -50,7 +50,7 @@ foreach (dynamic data in responseObj.result)
 }
 ```
 
-Example when using Zabbix.NET from Powershell (Log all hosts with active trigger)
+Example using Zabbix.NET from Powershell (Log all hosts with active triggers):
 ```
 [Reflection.Assembly]::LoadFile("C:\pathtodll\Newtonsoft.Json.dll");
 [Reflection.Assembly]::LoadFile("C:\pathtodll\ZabbixApi.dll");
@@ -67,11 +67,13 @@ $params.selectGroups = "extend";
 $params.monitored = $true;
 $params.sortfield = "hostname";
 $params.skipDependent = $true;
+$params.filter = @{"value" = 1;}
 $responseObj = $zabbix.objectResponse("trigger.get", $params);
+$Zabbix.logout();
+
 foreach ( $data in $responseObj.result) {
         write-output $data.Hostname;
 }
-$Zabbix.logout();
 ```
 
 Note that you pass API method to Zabbix.jsonRespopnse (objectResponse) method as a string.
