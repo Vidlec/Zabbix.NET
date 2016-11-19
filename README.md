@@ -50,7 +50,29 @@ foreach (dynamic data in responseObj.result)
 }
 ```
 
-
+Example when using Zabbix.NET from Powershell (Log all hosts with active trigger)
+```
+[Reflection.Assembly]::LoadFile("C:\pathtodll\Newtonsoft.Json.dll");
+[Reflection.Assembly]::LoadFile("C:\pathtodll\ZabbixApi.dll");
+$Zabbix = New-Object "ZabbixApi.Zabbix" ("yourapiuser", "yourpassword", "http://yourzabbix.domain.eu/zabbix/api_jsonrpc.php");
+$Zabbix.login();
+$params=[System.Dynamic.ExpandoObject]::new();
+$params.output=@("hostname", "description", "lastchange","priority","value","status","triggerid");
+$params.min_severity = 3;
+$params.expandData = $true;
+$params.expandDescription = $true;
+$params.expandExpression = $true;
+$params.selectHosts = "extend";
+$params.selectGroups = "extend";
+$params.monitored = $true;
+$params.sortfield = "hostname";
+$params.skipDependent = $true;
+$responseObj = $zabbix.objectResponse("trigger.get", $params);
+foreach ( $data in $responseObj.result) {
+        write-output $data.Hostname;
+}
+$Zabbix.logout();
+```
 
 Note that you pass API method to Zabbix.jsonRespopnse (objectResponse) method as a string.
 
