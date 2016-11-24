@@ -19,9 +19,7 @@ namespace ZabbixApi
             auth = null;
         }
 
-        public Zabbix(string user, string password, string zabbixURL) : this(user, password, zabbixURL, false)
-        {
-        }
+        public Zabbix(string user, string password, string zabbixURL) : this(user, password, zabbixURL, false) {}
 
         private string user;
         private string password;
