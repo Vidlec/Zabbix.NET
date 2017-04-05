@@ -26,6 +26,7 @@ namespace ZabbixApi
         private string zabbixURL;
         private string auth;
         private string basicAuth = null;
+        public bool loggedOn = false;
 
         public void login()
         {
@@ -33,7 +34,8 @@ namespace ZabbixApi
             userAuth.user = user;
             userAuth.password = password;  
             Response zbxResponse = objectResponse("user.login", userAuth);
-            auth = zbxResponse.result;          
+            auth = zbxResponse.result;
+            if(!String.IsNullOrEmpty(auth)) loggedOn = true;
         }
 
         public bool logout()
