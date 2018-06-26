@@ -51,7 +51,7 @@ foreach (dynamic data in responseObj.result)
 ```
 
 Example using Zabbix.NET from Powershell (Log all hosts with active triggers):
-```ps
+```js
 [Reflection.Assembly]::LoadFile("C:\pathtodll\Newtonsoft.Json.dll");
 [Reflection.Assembly]::LoadFile("C:\pathtodll\ZabbixApi.dll");
 $Zabbix = New-Object "ZabbixApi.Zabbix" ("yourapiuser", "yourpassword", "http://yourzabbix.domain.eu/zabbix/api_jsonrpc.php");
