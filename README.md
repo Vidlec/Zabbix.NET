@@ -6,7 +6,7 @@ Zabbix.NET
 There is no need for special classes for zabbix API methods. You can pass parameters via the anonymous objects. Or just your regular objects.
 
 Usage:
-```
+```csharp
 Zabbix zabbix = new Zabbix(user, pass, zabbixUrl);
 // Zabbix zabbix = new Zabbix(user, pass, zabbixUrl, true); // Add true as a parameter if you need to use Basic Auth
 zabbix.Login();
@@ -16,7 +16,7 @@ zabbix.Logout();
 ```
 
 Response class
-```
+```csharp
 public string jsonrpc { get; set; }
 public dynamic result = new ExpandoObject();
 public int id { get; set; }
@@ -25,7 +25,7 @@ public int id { get; set; }
 
 
 Example (Log all hosts with active triggers):
-```
+```csharp
 Zabbix zabbix = new Zabbix("yourapiuser", "yourpassword", "http://yourzabbix.domain.eu/zabbix/api_jsonrpc.php");
 
 zabbix.login();
@@ -51,7 +51,7 @@ foreach (dynamic data in responseObj.result)
 ```
 
 Example using Zabbix.NET from Powershell (Log all hosts with active triggers):
-```
+```ps
 [Reflection.Assembly]::LoadFile("C:\pathtodll\Newtonsoft.Json.dll");
 [Reflection.Assembly]::LoadFile("C:\pathtodll\ZabbixApi.dll");
 $Zabbix = New-Object "ZabbixApi.Zabbix" ("yourapiuser", "yourpassword", "http://yourzabbix.domain.eu/zabbix/api_jsonrpc.php");
